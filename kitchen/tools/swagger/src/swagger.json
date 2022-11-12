@@ -1,0 +1,349 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Swagger Api documentation for kitchen story application",
+    "version" : "1.0",
+    "title" : "Swagger Api Documentation for kitchen story application",
+    "contact" : {
+      "name" : "Nader Benkhalifa",
+      "email" : "nader.benkhalifa78@gmail.com"
+    }
+  },
+  "basePath" : "http://localhost:8070",
+  "tags" : [ {
+    "name" : "customers"
+  }, {
+    "name" : "products"
+  }, {
+    "name" : "purchases"
+  }, {
+    "name" : "purchasesItems"
+  } ],
+  "paths" : {
+    "/kitchenstory/v1/customers/all" : {
+      "get" : {
+        "tags" : [ "customers" ],
+        "summary" : "Renvoi la liste des customers",
+        "description" : "Cette methode permet de chercher et renvoyer la liste des clients qui existent dans la BDD",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "La liste des clients / Une liste vide",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Customer"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/customers/create" : {
+      "post" : {
+        "tags" : [ "customers" ],
+        "summary" : "Enregistrer un customer",
+        "description" : "Cette methode permet d'enregistrer ou modifier un customer",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Customer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet customer cree / modifie",
+            "schema" : {
+              "$ref" : "#/definitions/Customer"
+            }
+          },
+          "400" : {
+            "description" : "L'objet customer n'est pas valide"
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/customers/{email}" : {
+      "get" : {
+        "tags" : [ "customers" ],
+        "summary" : "Rechercher un customer par ID",
+        "description" : "Cette methode permet de chercher un customers par son email",
+        "operationId" : "findByEmail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Le customer a ete trouve dans la BDD",
+            "schema" : {
+              "$ref" : "#/definitions/Customer"
+            }
+          },
+          "404" : {
+            "description" : "Aucun customer n'existe dans la BDD avec l'email fourni"
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/products/all" : {
+      "get" : {
+        "tags" : [ "products" ],
+        "summary" : "Renvoi la liste des produits",
+        "description" : "Cette methode permet de chercher et renvoyer la liste des produits qui existent dans la BDD",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "La liste des produits / Une liste vide",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Product"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/products/create" : {
+      "post" : {
+        "tags" : [ "products" ],
+        "summary" : "Enregistrer un produit",
+        "description" : "Cette methode permet d'enregistrer ou modifier un produir",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet produit cree / modifie",
+            "schema" : {
+              "$ref" : "#/definitions/Product"
+            }
+          },
+          "400" : {
+            "description" : "L'objet produit n'est pas valide"
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/products/delete/{idProduct}" : {
+      "delete" : {
+        "tags" : [ "products" ],
+        "summary" : "Supprimer un produit",
+        "description" : "Cette methode permet de supprimer un produit par ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "idProduct",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "le produit a ete supprime"
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/purchases/all" : {
+      "get" : {
+        "tags" : [ "purchases" ],
+        "summary" : "Renvoi la liste des achats",
+        "description" : "Cette methode permet de chercher et renvoyer la liste des achats qui existent dans la BDD",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "La liste des achats / Une liste vide",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Purchase"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/purchases/create" : {
+      "post" : {
+        "tags" : [ "purchases" ],
+        "summary" : "Enregistrer un achat",
+        "description" : "Cette methode permet d'enregistrer ou modifier un achat",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Purchase"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet achat cree / modifie",
+            "schema" : {
+              "$ref" : "#/definitions/Purchase"
+            }
+          },
+          "400" : {
+            "description" : "L'objet achat n'est pas valide"
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/purchasesItems/all" : {
+      "get" : {
+        "tags" : [ "purchasesItems" ],
+        "summary" : "Renvoi la liste des elements d'achats",
+        "description" : "Cette methode permet de chercher et renvoyer la liste des elements d'achats qui existent dans la BDD",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "La liste des elements d'achats / Une liste vide",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PurchaseItem"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kitchenstory/v1/purchasesItems/create" : {
+      "post" : {
+        "tags" : [ "purchasesItems" ],
+        "summary" : "Enregistrer un achat",
+        "description" : "Cette methode permet d'enregistrer ou modifier un elemnt d'achat",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PurchaseItem"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "L'objet element d'achat cree / modifie",
+            "schema" : {
+              "$ref" : "#/definitions/PurchaseItem"
+            }
+          },
+          "400" : {
+            "description" : "L'objet element d'achat n'est pas valide"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Customer" : {
+      "type" : "object",
+      "properties" : {
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "contact" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Product" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "category" : {
+          "type" : "string"
+        },
+        "price" : {
+          "type" : "number",
+          "format" : "float"
+        }
+      }
+    },
+    "Purchase" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "totalcost" : {
+          "type" : "number",
+          "format" : "float"
+        },
+        "dateOfPurchase" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "purchaseItems" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PurchaseItem"
+          }
+        },
+        "customer" : {
+          "$ref" : "#/definitions/Customer"
+        }
+      }
+    },
+    "PurchaseItem" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "quantity" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "product" : {
+          "$ref" : "#/definitions/Product"
+        }
+      }
+    }
+  }
+}
